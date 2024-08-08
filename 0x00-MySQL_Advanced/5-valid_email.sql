@@ -1,12 +1,15 @@
 -- Drop the trigger if it already exists
-DROP TRIGGER IF EXISTS reset_valid_email_on_email_change;
+DELIMITER //
 
--- Create the trigger
-CREATE TRIGGER reset_valid_email_on_email_change
+CREATE TRIGGER before_update_email
 BEFORE UPDATE ON users
 FOR EACH ROW
 BEGIN
-    IF OLD.email <> NEW.email THEN
+    -- Check if the email is being changed
+    IF NEW.email <> OLD.email THEN
+        -- Reset valid_email to 0 if the email is changed
         SET NEW.valid_email = 0;
     END IF;
-END;
+END //
+
+DELIMITER ;
