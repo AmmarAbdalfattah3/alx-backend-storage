@@ -1,11 +1,5 @@
--- Create a temporary table to aggregate the number of fans by country origin
-SOURCE /path/to/metal_bands.sql.zip;
-CREATE TEMPORARY TABLE IF NOT EXISTS tmp_band_fans AS
-SELECT origin, SUM(nb_fans) AS nb_fans
-FROM bands
-GROUP BY origin;
-
--- Select and order the results by the number of fans
-SELECT origin, nb_fans
-FROM tmp_band_fans
+-- Select the origin and total number of fans, then order by the number of fans in descending order
+SELECT origin, SUM(fans) AS nb_fans
+FROM metal_bands
+GROUP BY origin
 ORDER BY nb_fans DESC;
