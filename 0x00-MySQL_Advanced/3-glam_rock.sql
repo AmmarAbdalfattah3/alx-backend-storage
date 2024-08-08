@@ -1,10 +1,5 @@
--- List bands with Glam rock style, ranked by longevity
-SELECT
-    band_name,
-    (2022 - formation_year) AS lifespan
-FROM
-    metal_bands
-WHERE
-    style = 'Glam rock'
-ORDER BY
-    lifespan DESC;
+-- Create a view to list all bands with Glam rock as their main style, ranked by longevity
+SELECT band_name AS band_name, IFNULL(split, 2022) - IFNULL(formed, 0) AS lifespan
+FROM metal_bands
+WHERE style LIKE '%Glam rock%'
+ORDER BY lifespan DESC;
