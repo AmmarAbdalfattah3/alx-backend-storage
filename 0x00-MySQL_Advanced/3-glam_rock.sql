@@ -1,8 +1,12 @@
-SELECT band_name, 
-       CASE 
-           WHEN split IS NULL THEN 2022 - formed  -- Calculate lifespan for active bands
-           ELSE split - formed  -- Calculate lifespan for bands that have split
-       END AS lifespan
-FROM metal_bands
-WHERE style = 'Glam rock'  -- Filter by Glam rock as the main style
-ORDER BY lifespan DESC;  -- Order by lifespan in descending order
+-- Assuming the metal_bands table already exists and contains the necessary columns
+
+-- Query to list Glam Rock bands with their lifespan, sorted by longevity
+SELECT
+    band_name,
+    COALESCE(split, 2022) - formed AS lifespan
+FROM
+    metal_bands
+WHERE
+    style = 'Glam rock'
+ORDER BY
+    lifespan DESC;
