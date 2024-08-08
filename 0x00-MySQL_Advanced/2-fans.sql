@@ -1,4 +1,5 @@
 -- Create a temporary table to aggregate the number of fans by country origin
+SOURCE /path/to/metal_bands.sql.zip;
 CREATE TEMPORARY TABLE IF NOT EXISTS tmp_band_fans AS
 SELECT origin, SUM(nb_fans) AS nb_fans
 FROM bands
