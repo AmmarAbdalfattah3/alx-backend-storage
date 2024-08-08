@@ -1,9 +1,17 @@
--- Assuming the metal_bands table already exists and contains the necessary columns
+-- Step 1: Create the table to import data into
+CREATE TABLE IF NOT EXISTS metal_bands (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    band_name VARCHAR(255) NOT NULL,
+    formation_year INT NOT NULL,
+    style VARCHAR(255) NOT NULL
+);
 
--- Query to list Glam Rock bands with their lifespan, sorted by longevity
+-- Step 2: Load the data from the metal_bands.sql.zip file
+
+-- Step 3: Compute lifespan and list bands with Glam rock style.
 SELECT
     band_name,
-    COALESCE(split, 2022) - formed AS lifespan
+    (2022 - formation_year) AS lifespan
 FROM
     metal_bands
 WHERE
