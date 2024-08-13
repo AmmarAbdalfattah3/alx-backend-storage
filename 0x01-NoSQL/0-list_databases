@@ -1,2 +1,2 @@
-//This script lists all databases.
-echo "show db"
+// This script lists all databases.
+show dbs
