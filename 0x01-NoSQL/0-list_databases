@@ -1,2 +1,2 @@
 // This script lists all databases.
-mongo --eval "db.adminCommand('listDatabases')"
+echo "show db"
