@@ -12,5 +12,5 @@ def schools_by_topic(mongo_collection, topic):
     :param topic: The topic to search for in the documents.
     :return: A list of documents that contain the specified topic.
     """
-    result = mongo_collection.find({"topic": topic})
+    result = mongo_collection.find(topic)
     return list(result)
