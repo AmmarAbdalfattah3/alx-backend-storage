@@ -7,7 +7,7 @@ This module changes all topics of a school document based on the name
 from pymongo.collection import Collection
 from typing import List
 
-def update_topics(mongo_collection: Collection, name: str, topics: List[str]) -> None:
+def update_topics(mongo_collection: Collection, name: str, topics: List[str]) -> List[str]:
     """
     Update all topics of a school document based on the name.
 
@@ -19,7 +19,7 @@ def update_topics(mongo_collection: Collection, name: str, topics: List[str]) ->
     Returns:
         None
     """
-    mongo_collection.update_many(
-        {"name": name},
-        {"$set": {"topics": topics}}
-    )
+    return mongo_collection.update_many(
+            {"name": name},
+            {"$set": {"topics": topics}}
+        )
