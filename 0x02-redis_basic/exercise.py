@@ -40,6 +40,35 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(method: Callable) -> None:
+    """
+    Display the history of calls of a particular function.
+    """
+    # Get the qualified name of the method to construct Redis keys
+    method_name = method.__qualname__
+    inputs_key = f"{method_name}:inputs"
+    outputs_key = f"{method_name}:outputs"
+
+    # Retrieve inputs and outputs from Redis
+    redis_client = method.__self__._redis
+    inputs = redis_client.lrange(inputs_key, 0, -1)
+    outputs = redis_client.lrange(outputs_key, 0, -1)
+
+    # Number of calls is the length of either inputs or outputs
+    num_calls = len(inputs)
+
+    print(f"{method_name} was called {num_calls} times:")
+
+    # Iterate over the inputs and outputs to format the history
+    for input_data, output_data in zip(inputs, outputs):
+        # Convert input_data from bytes to string tuple
+        input_str = input_data.decode('utf-8')
+        # Convert output_data from bytes to string
+        output_str = output_data.decode('utf-8')
+        # Print the formatted call history
+        print(f"{method_name}(*{input_str}) -> {output_str}")
+
+
 class Cache:
     def __init__(self):
         """Initialize the Cache class."""
