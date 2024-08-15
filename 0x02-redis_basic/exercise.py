@@ -28,7 +28,11 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable[[bytes], Union[str, int, float]]] = None) -> Optional[Union[str, int, float]]:
+    def get(
+            self,
+            key: str,
+            fn: Optional[Callable[[bytes], Union[str, int, float]]] = None
+    ) -> Optional[Union[str, int, float]]:
         data = self._redis.get(key)
         if data is None:
             return None
