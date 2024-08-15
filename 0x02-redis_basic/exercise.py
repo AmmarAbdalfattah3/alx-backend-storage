@@ -5,7 +5,7 @@ Cache class with a Redis client instance.
 
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable, Optional
 
 
 class Cache:
